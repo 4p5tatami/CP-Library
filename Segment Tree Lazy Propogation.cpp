@@ -1,7 +1,7 @@
 //define M, INF first
 /*
 use = for assignment, += for addition
-multiply with (tr-tl+1) for range sum
+multiply with range length (tr-tl+1) when assigning lazy values for range sum
 */
 
 ll t[4*M], lazy[4*M];
@@ -17,7 +17,7 @@ void build(ll a[], int v, int tl, int tr){
     int tm = (tl + tr) / 2;
     build(a, v*2, tl, tm);
     build(a, v*2+1, tm+1, tr);
-    t[v] = t[v*2] + t[v*2+1];
+    t[v] = max(t[v*2], t[v*2+1]);
 }
 
 void push(int v, int tl, int tr){
@@ -47,7 +47,7 @@ void update(int v, int tl, int tr, int l, int r, ll val){
     int tm = (tl + tr) / 2;
     update(v*2, tl, tm, l, r, val);
     update(v*2+1, tm+1, tr, l, r, val);
-    t[v] = min(t[v*2], t[v*2+1]);
+    t[v] = max(t[v*2], t[v*2+1]);
 
 }
 
@@ -64,6 +64,6 @@ ll query(int v, int tl, int tr, int l, int r){
     ll Lchild = query(v*2, tl, tm, l, r);
     ll Rchild = query(v*2+1, tm+1, tr, l, r);
 
-    return Lchild + Rchild;
+    return max(Lchild, Rchild);
 
 }

@@ -1,7 +1,7 @@
 //declare M first
-ll t[4*M];
+int t[4*M];
 
-void build(ll a[], int v, int tl, int tr){
+void build(int a[], int v, int tl, int tr){
 
     if(tl == tr){
         t[v] = a[tl];
@@ -14,7 +14,7 @@ void build(ll a[], int v, int tl, int tr){
     t[v] = t[v*2] + t[v*2+1];
 }
 
-void update(int v, int tl, int tr, int pos, ll new_val){
+void update(int v, int tl, int tr, int pos, int new_val){
 
     if(tl == tr){
         t[v] = new_val;
@@ -28,7 +28,7 @@ void update(int v, int tl, int tr, int pos, ll new_val){
 
 }
 
-ll query(int v, int tl, int tr, int l, int r){
+int query(int v, int tl, int tr, int l, int r){
 
     if(l > tr or r < tl) return 0;
 
@@ -36,8 +36,8 @@ ll query(int v, int tl, int tr, int l, int r){
 
     int tm = (tl + tr) / 2;
 
-    ll Lchild = query(v*2, tl, tm, l, r);
-    ll Rchild = query(v*2+1, tm+1, tr, l, r);
+    int Lchild = query(v*2, tl, tm, l, r);
+    int Rchild = query(v*2+1, tm+1, tr, l, r);
 
     return Lchild + Rchild;
 

@@ -4,7 +4,6 @@ int table[M][K];
 
 void precalc(){ //run this first
 
-    lg2[1] = 0;
     for(int i=2; i<M; i++){
         lg2[i] = lg2[i/2] + 1;
     }

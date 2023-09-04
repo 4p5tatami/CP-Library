@@ -3,15 +3,17 @@ vector<int>g[M];
 int tin[M], tout[M], timer;
 vector<int>times(1, 0);
 vector<int>order(1, 0);
+int id[M];
 
-void dfs(int u, int p=0){ //run this first
+void dfs(int u, int par=0){ //run this first
 
     tin[u] = ++timer;
+    id[u] = order.size();
     times.push_back(tin[u]);
     order.push_back(u);
 
     for(int x : g[u]){
-        if(x != p){
+        if(x != par){
             dfs(x, u);
         }
     }

@@ -3,29 +3,44 @@ answer queries offline. use remove and add functions to define adding and removi
 complexity : O(n*sqrt(n)*f), where f is the time taken by the remove/add function
 */
 
-const int BLOCK = 320; //define BLOCK as close to sqrt(n)
+const int B = 450; //define BLOCK as close to sqrt(n)
+ 
+void remove(int idx){
 
-void remove(int idx);
-void add(int idx);
-int get_answer();
+}
 
+void add(int idx){
+
+}
+ 
+int get_answer(){
+
+}
+ 
 struct query{
     int l, r, idx;
     query(){};
     query(int _l, int _r, int _idx) : l(_l), r(_r), idx(_idx){};
     bool operator <(const query &other){
-        return make_pair((l-1)/BLOCK, r) < make_pair((other.l-1)/BLOCK, other.r);
+        if(l/B == other.l/B){
+            if((l/B) & 1) return r > other.r;
+            else return other.r > r;
+        }
+        return l < other.l;
     }
 };
-
-vector<int>mo(vector<query>queries){
-
-    vector<int>answers(queries.size());
-    sort(queries.begin(), queries.end());
-
+ 
+query queries[M];
+int ans[M];
+ 
+void mo(int m){
+ 
+    sort(queries+1, queries+m+1);
+ 
     int cur_l = 1, cur_r = 0;
-
-    for(query q : queries){
+ 
+    for(int i=1; i<=m; i++){
+        query q = queries[i];
         while(cur_l > q.l){
             cur_l--;
             add(cur_l);
@@ -42,9 +57,7 @@ vector<int>mo(vector<query>queries){
             remove(cur_r);
             cur_r--;
         }
-        answers[q.idx] = get_answer();
+        ans[q.idx] = get_answer();
     }
-
-    return answers;
-
+ 
 }

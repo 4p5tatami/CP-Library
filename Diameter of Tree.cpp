@@ -10,8 +10,8 @@ int diameter(){
             mx = h;
             node = u;
         }
-        for(int x : g[u]){
-            if(x != p) dfs(x, u, h+1);
+        for(int v : g[u]){
+            if(v != p) dfs(v, u, h+1);
         }
     };
 

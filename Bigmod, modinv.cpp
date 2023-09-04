@@ -1,7 +1,8 @@
 const int MOD = 1e9 + 7;
 
-ll bigmod(ll x, ll p){
+ll expo(ll x, ll p){
     x %= MOD;
+    if(p == -1) p = MOD-2;
     ll res = 1;
     while(p){
         if(p & 1) res = res * x % MOD;
@@ -9,9 +10,5 @@ ll bigmod(ll x, ll p){
         p >>= 1;
     }
     return res;
-}
-
-ll modinv(ll x){
-    return bigmod(x, MOD-2);
 }
 

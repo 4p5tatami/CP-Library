@@ -6,11 +6,11 @@ void dfs(int u){
 
     vis[u] = 1;
 
-    for(int x : g[u]){
-        if(vis[x] == 1){
+    for(int v : g[u]){
+        if(vis[v] == 1){
             //cycle found, topological ordering doesn't exist
         }
-        if(!vis[x]) dfs(x);
+        if(!vis[v]) dfs(v);
     }
 
     vis[u] = 2;

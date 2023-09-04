@@ -72,4 +72,22 @@ struct Dinic{
 		}
 		return f;
 	}
+	vector<int>mincut(){
+        queue<int>q;
+        vector<int>vis(n+1, 0), ret;
+        q.push(s), ret.push_back(s);
+        vis[s] = 1;
+        while(!q.empty()){
+            int u = q.front();
+            q.pop();
+            for(int id : adj[u]){
+                if(edges[id].cap - edges[id].flow > 0 and !vis[edges[id].v]){
+                    q.push(edges[id].v);
+                    ret.push_back(edges[id].v);
+                    vis[edges[id].v] = 1;
+                }
+            }
+        }
+        return ret;
+    }
 };

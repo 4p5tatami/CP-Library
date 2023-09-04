@@ -2,7 +2,6 @@
 
 const int M = 2e5 + 3;
 int sz[M], done[M], cpar[M], root;
-vector<int>ctree[M];
 
 void go(int u, int p=-1){
 	sz[u] = 1;
@@ -26,7 +25,6 @@ void decompose(int v=0, int p=-1){
 	if(p == -1) root = c;
 	done[c] = 1;
 	cpar[c] = p;
-	if(p != -1) ctree[p].push_back(c);
 	for(int x : g[c]){
 		if(!done[x]) decompose(x, c);
 	}

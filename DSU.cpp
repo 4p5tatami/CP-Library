@@ -2,7 +2,7 @@
 
 int par[M], sz[M];
 
-void init(int n){
+void init(int n){ //run this
     for(int i=1; i<=n; i++) par[i] = i, sz[i] = 1;
 }
 

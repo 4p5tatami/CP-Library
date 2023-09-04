@@ -1,6 +1,7 @@
 // Complexity : O(n^3 log p). define M and MOD
 const int M = 103;
-const int MOD = 1e9 + 7;
+const int MOD = 998244353;
+
 struct matrix{
     int mat[M][M];
     int n, m;
@@ -15,11 +16,12 @@ struct matrix{
     }
     matrix operator *(const matrix &mul){
         int p = n, q = mul.n, r = mul.m;
-        matrix ret = matrix(p, r);
+        matrix ret(p, r);
         for(int i=0; i<p; i++){
             for(int j=0; j<r; j++){
                 for(int k=0; k<q; k++){
-                    ret.mat[i][j] += mat[i][k] * mul.mat[k][j];
+                    ret.mat[i][j] += 1LL * mat[i][k] * mul.mat[k][j] % MOD;
+                    ret.mat[i][j] %= MOD;
                 }
             }
         }
@@ -28,7 +30,7 @@ struct matrix{
     
 };
 
-matrix expo(matrix m, int p){
+matrix expo(matrix m, ll p){
     int n = m.n;
     matrix ret = matrix(n);
     for(int i=0; i<n; i++) ret.mat[i][i] = 1;
