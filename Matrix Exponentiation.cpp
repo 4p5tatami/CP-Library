@@ -32,7 +32,7 @@ struct matrix{
 
 matrix expo(matrix m, ll p){
     int n = m.n;
-    matrix ret = matrix(n);
+    matrix ret(n);
     for(int i=0; i<n; i++) ret.mat[i][i] = 1;
     while(p){
         if(p & 1) ret = ret * m;

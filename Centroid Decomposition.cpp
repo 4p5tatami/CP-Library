@@ -19,7 +19,7 @@ int find_centroid(int v, int p, int n){
 	return v;
 }
 
-void decompose(int v=0, int p=-1){
+void decompose(int v, int p=-1){
 	go(v);
 	int c = find_centroid(v, -1, sz[v]);
 	if(p == -1) root = c;
