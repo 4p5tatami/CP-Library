@@ -1,47 +1,62 @@
-//declare M first
-int t[4*M];
+template<typename T>
+struct segtree{
 
-void build(int a[], int v, int tl, int tr){
+    T t[4*M];
+    int n;
 
-    if(tl == tr){
-        t[v] = a[tl];
-        return;
+    segtree(int n=0) : n(n){}
+
+    void build(int a[], int v, int tl, int tr){
+
+        if(tl == tr){
+            t[v] = T(a[tl]);
+            return;
+        }
+
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
     }
 
-    int tm = (tl + tr) / 2;
-    build(a, v*2, tl, tm);
-    build(a, v*2+1, tm+1, tr);
-    t[v] = t[v*2] + t[v*2+1];
-}
-
-void update(int v, int tl, int tr, int pos, int new_val){
-
-    if(tl == tr){
-        t[v] = new_val;
-        return;
+    void build(int a[]){
+        build(a, 1, 1, n);
     }
 
-    int tm = (tl + tr) / 2;
-    if(pos <= tm) update(v*2, tl, tm, pos, new_val);
-    else update(v*2+1, tm+1, tr, pos, new_val);
-    t[v] = t[v*2] + t[v*2+1];
+    void update(int v, int tl, int tr, int pos, int val){
 
-}
+        if(tl == tr){
+            t[v] = T(val);
+            return;
+        }
 
-int query(int v, int tl, int tr, int l, int r){
+        int tm = (tl + tr) / 2;
+        if(pos <= tm) update(v*2, tl, tm, pos, val);
+        else update(v*2+1, tm+1, tr, pos, val);
+        t[v] = t[v*2] + t[v*2+1];
 
-    if(l > tr or r < tl) return 0;
+    }
 
-    if(l <= tl and tr <= r) return t[v];
+    void update(int idx, int val){
+        update(1, 1, n, idx, val);
+    }
 
-    int tm = (tl + tr) / 2;
+    T query(int v, int tl, int tr, int l, int r){
 
-    int Lchild = query(v*2, tl, tm, l, r);
-    int Rchild = query(v*2+1, tm+1, tr, l, r);
+        if(l > tr or r < tl) return T(0);
 
-    return Lchild + Rchild;
+        if(l <= tl and tr <= r) return t[v];
 
-}
+        int tm = (tl + tr) / 2;
 
+        T Lchild = query(v*2, tl, tm, l, r);
+        T Rchild = query(v*2+1, tm+1, tr, l, r);
 
+        return Lchild + Rchild;
 
+    }
+
+    T query(int L, int R){
+        return query(1, 1, n, L, R);
+    }
+};

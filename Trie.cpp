@@ -1,5 +1,5 @@
-//define M, K = alphabet size
-int trie[M][K], word[M], cnt[M], sz;
+//define N = total length of all strings, K = alphabet size
+int trie[N][K], word[N], cnt[N], sz;
 
 void Insert(string s){
     int node = 0;
@@ -16,7 +16,7 @@ void Insert(string s){
 }
 
 bool Search(string s){
-    int node = 0, ret = 0;
+    int node = 0;
 
     for(int i=0; i<s.size(); i++){
         int c = s[i]-'a';

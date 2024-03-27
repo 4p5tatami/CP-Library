@@ -15,8 +15,8 @@ namespace LCA{
             up[u][i] = up[up[u][i-1]][i-1];
         }
 
-        for(int x : g[u]){
-            if(x != par) dfs(x, u, h+1);
+        for(int v : g[u]){
+            if(v != par) dfs(v, u, h+1);
         }
 
         tout[u] = ++timer;

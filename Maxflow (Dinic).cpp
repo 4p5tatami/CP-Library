@@ -1,13 +1,12 @@
 // Complexity : O(V^2 * E), O(E*sqrt(V)) for unit flow networks
 
-struct FlowEdge{
+struct edge{
 	int u, v;
 	ll cap, flow = 0;
-	FlowEdge(int u, int v, ll cap) : u(u), v(v), cap(cap){}
 };
  
 struct Dinic{
-	vector<FlowEdge>edges;
+	vector<edge>edges;
 	vector<vector<int>>adj;
 	int n, m = 0;
 	int s, t;
@@ -15,9 +14,9 @@ struct Dinic{
 	queue<int>q;
  
 	Dinic(int n, int s, int t) : n(n), s(s), t(t){
-		adj.resize(n+1);
-		lv.resize(n+1);
-		ptr.resize(n+1);
+		adj.resize(n);
+		lv.resize(n);
+		ptr.resize(n);
 	}
  
 	void add_edge(int u, int v, ll cap){

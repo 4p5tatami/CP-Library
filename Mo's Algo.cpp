@@ -3,20 +3,18 @@ answer queries offline. use remove and add functions to define adding and removi
 complexity : O(n*sqrt(n)*f), where f is the time taken by the remove/add function
 */
 
-const int B = 450; //define BLOCK as close to sqrt(n)
- 
-void remove(int idx){
-
-}
+const int B = 450; //define B close to sqrt(n)
 
 void add(int idx){
 
-}
- 
-int get_answer(){
+} 
+void remove(int idx){
 
 }
- 
+ll get_answer(){
+
+}
+
 struct query{
     int l, r, idx;
     query(){};
@@ -30,17 +28,14 @@ struct query{
     }
 };
  
-query queries[M];
-int ans[M];
- 
-void mo(int m){
- 
-    sort(queries+1, queries+m+1);
+ vector<ll>mo(vector<query>queries){
+    
+    vector<ll>answers(queries.size());
+    sort(queries.begin(), queries.end());
  
     int cur_l = 1, cur_r = 0;
  
-    for(int i=1; i<=m; i++){
-        query q = queries[i];
+    for(auto q : queries){
         while(cur_l > q.l){
             cur_l--;
             add(cur_l);
@@ -57,7 +52,9 @@ void mo(int m){
             remove(cur_r);
             cur_r--;
         }
-        ans[q.idx] = get_answer();
+        answers[q.idx] = get_answer();
     }
+
+    return answers;
  
 }

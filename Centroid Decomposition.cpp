@@ -1,6 +1,5 @@
 // Builds a centroid tree of height O(logn) in O(nlogn). 
 
-const int M = 2e5 + 3;
 int sz[M], done[M], cpar[M], root;
 
 void go(int u, int p=-1){
@@ -27,5 +26,11 @@ void decompose(int v, int p=-1){
 	cpar[c] = p;
 	for(int x : g[c]){
 		if(!done[x]) decompose(x, c);
+	}
+}
+
+void reset(int n){
+	for(int i=1; i<=n; i++){
+		done[i] = cpar[i] = sz[i] = 0;
 	}
 }

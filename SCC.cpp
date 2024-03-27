@@ -2,12 +2,12 @@
 condesation graph is the DAG built on a directed graph by compressing each SCC into a node.
 define M */
 
-vector<int>g[M], gr[M];
-set<int>gc[M];
-int vis[M], id[M], sz[M];
-vector<int>order, comp, roots;
 
 namespace SCC{
+
+    vector<int>g[M], gr[M], gc[M];
+    int vis[M], id[M], sz[M];
+    vector<int>order, comp, roots;
 
     void addEdge(int u, int v){
         g[u].push_back(v), gr[v].push_back(u);
@@ -49,7 +49,7 @@ namespace SCC{
         for(int u=1; u<=n; u++){
             for(int v : g[u]){
                 if(id[u] != id[v]){
-                    gc[id[u]].insert(id[v]);
+                    gc[id[u]].push_back(id[v]);
                 }
             }
         }
