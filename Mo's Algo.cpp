@@ -28,7 +28,7 @@ struct query{
     }
 };
  
- vector<ll>mo(vector<query>queries){
+vector<ll>mo(vector<query>queries){
     
     vector<ll>answers(queries.size());
     sort(queries.begin(), queries.end());

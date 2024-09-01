@@ -1,5 +1,6 @@
 /*
-find solutions to equations of form -> ax + by = c. 
+find solutions to equation -> ax + by = c. 
+solutions will be of form -> x = x0 + k*(b/g), y = y0 - k*(a/g).
 */
 
 ll ext_gcd(ll a, ll b, ll &x, ll &y){
@@ -24,6 +25,8 @@ bool find_any_solution(ll a, ll b, ll c, ll &x0, ll &y0, ll &g){
     if(b < 0) y0 = -y0;
     return true;
 }
+
+//find number of solutions such that x in [minx, maxx] and y in [miny, maxy]
 
 void shift_solution(ll &x, ll &y, ll a, ll b, ll cnt){
     x += cnt * b;

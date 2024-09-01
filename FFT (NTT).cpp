@@ -1,14 +1,15 @@
 /*multiples two polynomials modulo MOD. Complexity : O(nlogn).
-set G = primitive_root(), define N as a power of two greater than the size of any possible polynomial
+set G = primitive root, define N as a power of two greater than the size of any possible polynomial
 */
 
-const int G = 3;
+const int G = 3; 
 const int MOD = 998244353; 
-const int N = 1<<17 + 5;
+const int N = (1<<17) + 5;
 
-ll bigmod(ll x, ll p){
+ll expo(ll x, ll p){
     x %= MOD;
     ll res = 1;
+    if(p == -1) p = MOD-2;
     while(p){
         if(p & 1) res = res * x % MOD;
         x = x * x % MOD;
@@ -17,16 +18,13 @@ ll bigmod(ll x, ll p){
     return res;
 }
 
-ll modinv(ll x){
-    return bigmod(x, MOD-2);
-}
 
 int rev[N], w[N], inv_n;
 
 void prepare(int &n){
 	int sz = abs(31 - __builtin_clz(n));
-	int r = bigmod(G, (MOD-1)/n);
-	inv_n = modinv(n), w[0] = w[n] = 1;
+	int r = expo(G, (MOD-1)/n);
+	inv_n = expo(n, -1), w[0] = w[n] = 1;
 	for(int i=1; i<n; i++) w[i] = 1LL*w[i-1]*r % MOD;
 	for(int i=1; i<n; i++) rev[i] = (rev[i>>1] >> 1) | ((i & 1) << (sz-1));
 }
@@ -61,7 +59,6 @@ vector<int>multiply(vector<int>a, vector<int>b){
 	return vector<int>(fa, fa+n+m-1);
 }
 
-//G = primitive_root()
 int primitive_root(){
 	vector<int>factor;
 	int p = MOD;
@@ -76,7 +73,7 @@ int primitive_root(){
 	for(int root=1;; root++){
 		bool flag = true;
 		for(int i=0; i<factor.size(); i++){
-			if(bigmod(root, (p-1)/factor[i]) == 1){
+			if(expo(root, (p-1)/factor[i]) == 1){
 				flag = false; break;
 			}
 		}

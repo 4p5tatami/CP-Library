@@ -16,7 +16,7 @@ gp_hash_table<pii, int, chash> table; //for pairs
 
 //fastest version, custom hash function, unhackable
 
-struct chash {
+struct chash{
   const int RANDOM = (long long)(make_unique<char>().get())
                      ^ chrono::high_resolution_clock::now()
                      .time_since_epoch()

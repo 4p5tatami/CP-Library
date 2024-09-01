@@ -1,5 +1,5 @@
 //Complexity : O(n+m)
-struct _ 2SAT{
+struct _2SAT{
 
     vector<vector<int>>g, gt;
     vector<bool>vis;
