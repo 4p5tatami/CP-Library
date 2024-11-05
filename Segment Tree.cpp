@@ -1,47 +1,62 @@
-int trie[M*K][2];
-int cnt[M*K];
-int sz = 0;
+template<typename T>
+struct segtree{
 
-void Insert(int x){
-    int node = 0;
+    T t[4*M];
+    int n;
 
-    for(int i=K-1; i>=0; i--){
-        int c = (bool)(x >> i & 1);
-        if(!trie[node][c]){
-            trie[node][c] = ++sz;
+    segtree(int n=0) : n(n){}
+
+    void build(T a[], int v, int tl, int tr){
+
+        if(tl == tr){
+            t[v] = a[tl];
+            return;
         }
-        node = trie[node][c];
-        cnt[node]++;
-    }
-}
 
-int Search(int x){
-    int node = 0, ret = 0;
-
-    for(int i=K-1; i>=0; i--){
-        int c = (bool)(x >> i & 1);
-        //do your stuff with x here
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm);
+        build(a, v*2+1, tm+1, tr);
+        t[v] = t[v*2] + t[v*2+1];
     }
 
-    return ret;
-}
-
-void Delete(int x){
-    int node = 0;
-    vector<int>v(1, 0);
-
-    for(int i=K-1; i>=0; i--){
-        int c = (bool)(x >> i & 1);
-        node = trie[node][c];
-        cnt[node]--;
-        v.push_back(node);
+    void build(T a[]){
+        build(a, 1, 1, n);
     }
 
+    void update(int v, int tl, int tr, int pos, T val){
 
-    for(int i=1, j=K-1; i<v.size(); i++, j--){
-        int c = (bool)(x >> j & 1);
-        if(!cnt[v[i]]){
-            trie[v[i-1]][c] = 0;
+        if(tl == tr){
+            t[v] = val;
+            return;
         }
+
+        int tm = (tl + tr) / 2;
+        if(pos <= tm) update(v*2, tl, tm, pos, val);
+        else update(v*2+1, tm+1, tr, pos, val);
+        t[v] = t[v*2] + t[v*2+1];
+
     }
-}
+
+    void update(int idx, T val){
+        update(1, 1, n, idx, val);
+    }
+
+    T query(int v, int tl, int tr, int l, int r){
+
+        if(l > tr or r < tl) return T(0);
+
+        if(l <= tl and tr <= r) return t[v];
+
+        int tm = (tl + tr) / 2;
+
+        T Lchild = query(v*2, tl, tm, l, r);
+        T Rchild = query(v*2+1, tm+1, tr, l, r);
+
+        return Lchild + Rchild;
+
+    }
+
+    T query(int L, int R){
+        return query(1, 1, n, L, R);
+    }
+};
